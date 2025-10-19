@@ -754,7 +754,7 @@ func TestHandleLocalPackets(t *testing.T) {
 			IPVersion: 4,
 			IPProto:   ipproto.TCP,
 			Src:       netip.MustParseAddrPort("127.0.0.1:9999"),
-			Dst:       netip.MustParseAddrPort("100.100.100.100:53"),
+			Dst:       netip.MustParseAddrPort("127.50.51.52:53"),
 			TCPFlags:  packet.TCPSyn,
 		}
 		resp, _ := impl.handleLocalPackets(pkt, impl.tundev, nil)

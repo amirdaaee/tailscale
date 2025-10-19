@@ -1362,7 +1362,7 @@ func TestUpdatePrefs(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if tt.sshOverTailscale {
-				tstest.Replace(t, &getSSHClientEnvVar, func() string { return "100.100.100.100 1 1" })
+				tstest.Replace(t, &getSSHClientEnvVar, func() string { return "127.50.51.52 1 1" })
 			} else if isSSHOverTailscale() {
 				// The test is being executed over a "real" tailscale SSH
 				// session, but sshOverTailscale is unset. Make the test appear

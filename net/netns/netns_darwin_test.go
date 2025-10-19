@@ -68,7 +68,7 @@ func TestGetInterfaceIndex(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		idx, err := getInterfaceIndex(t.Logf, nil, "100.100.100.100:53")
+		idx, err := getInterfaceIndex(t.Logf, nil, "127.50.51.52:53")
 		if err != nil {
 			t.Fatal(err)
 		}

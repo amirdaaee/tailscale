@@ -49,7 +49,7 @@ var (
 //
 // For IPv6, use TailscaleServiceIPv6.
 func TailscaleServiceIP() netip.Addr {
-	return netaddr.IPv4(100, 100, 100, 100) // "100.100.100.100" for those grepping
+	return netaddr.IPv4(127, 50, 51, 52) // "127.50.51.52" for those grepping
 }
 
 // TailscaleServiceIPv6 returns the IPv6 listen address of the services
@@ -62,7 +62,7 @@ func TailscaleServiceIPv6() netip.Addr {
 }
 
 const (
-	TailscaleServiceIPString   = "100.100.100.100"
+	TailscaleServiceIPString   = "127.50.51.52"
 	TailscaleServiceIPv6String = "fd7a:115c:a1e0::53"
 )
 

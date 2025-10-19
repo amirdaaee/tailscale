@@ -26,7 +26,7 @@ func NewOSConfigurator(logf logger.Logf, _ *health.Tracker, _ policyclient.Clien
 
 // darwinConfigurator is the tailscaled-on-macOS DNS OS configurator that
 // maintains the Split DNS nameserver entries pointing MagicDNS DNS suffixes
-// to 100.100.100.100 using the macOS /etc/resolver/$SUFFIX files.
+// to 127.50.51.52 using the macOS /etc/resolver/$SUFFIX files.
 type darwinConfigurator struct {
 	logf   logger.Logf
 	ifName string
@@ -103,7 +103,7 @@ func (c *darwinConfigurator) GetBaseConfig() (OSConfig, error) {
 	for _, ns := range resolvConf.Nameservers {
 		if ns == tsaddr.TailscaleServiceIP() || ns == tsaddr.TailscaleServiceIPv6() {
 			// If we find Quad100 in /etc/resolv.conf, we should ignore it
-			c.logf("ignoring 100.100.100.100 resolver IP found in /etc/resolv.conf")
+			c.logf("ignoring 127.50.51.52 resolver IP found in /etc/resolv.conf")
 			continue
 		}
 		cfg.Nameservers = append(cfg.Nameservers, ns)

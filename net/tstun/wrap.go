@@ -815,12 +815,12 @@ func (t *Wrapper) SetWGConfig(wcfg *wgcfg.Config) {
 }
 
 var (
-	magicDNSIPPort   = netip.AddrPortFrom(tsaddr.TailscaleServiceIP(), 0) // 100.100.100.100:0
+	magicDNSIPPort   = netip.AddrPortFrom(tsaddr.TailscaleServiceIP(), 0) // 127.50.51.52:0
 	magicDNSIPPortv6 = netip.AddrPortFrom(tsaddr.TailscaleServiceIPv6(), 0)
 )
 
 func (t *Wrapper) filterPacketOutboundToWireGuard(p *packet.Parsed, pc *peerConfigTable, gro *gro.GRO) (filter.Response, *gro.GRO) {
-	// Fake ICMP echo responses to MagicDNS (100.100.100.100).
+	// Fake ICMP echo responses to MagicDNS (127.50.51.52).
 	if p.IsEchoRequest() {
 		switch p.Dst {
 		case magicDNSIPPort:

@@ -36,7 +36,7 @@ func TestInCrostiniRange(t *testing.T) {
 
 func TestTailscaleServiceIP(t *testing.T) {
 	got := TailscaleServiceIP().String()
-	want := "100.100.100.100"
+	want := "127.50.51.52"
 	if got != want {
 		t.Errorf("got %q; want %q", got, want)
 	}

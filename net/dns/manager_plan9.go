@@ -92,7 +92,7 @@ func setNDBSuffix(tsFree []byte, suffix string) []byte {
 
 		t := bs.Text()
 		if suffix != "" && len(added) == 0 && strings.HasPrefix(t, "\tdns=") {
-			addLine(fmt.Sprintf("\tdns=100.100.100.100 suffix=%s\n", suffix))
+			addLine(fmt.Sprintf("\tdns=127.50.51.52 suffix=%s\n", suffix))
 			addLine(fmt.Sprintf("\tdnsdomain=%s\n", suffix))
 		}
 	}

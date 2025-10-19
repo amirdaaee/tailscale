@@ -774,7 +774,7 @@ func (ns *Impl) handleLocalPackets(p *packet.Parsed, t *tstun.Wrapper, gro *gro.
 	switch {
 	case dst == serviceIP || dst == serviceIPv6:
 		// We want to intercept some traffic to the "service IP" (e.g.
-		// 100.100.100.100 for IPv4). However, of traffic to the
+		// 127.50.51.52 for IPv4). However, of traffic to the
 		// service IP, we only care about UDP 53, and TCP on port 53,
 		// 80, and 8080.
 		switch p.IPProto {
@@ -987,7 +987,7 @@ func (ns *Impl) inject() {
 // return true. It will return false if the packet should be sent outbound, for
 // transit via WireGuard to another Tailscale node.
 func (ns *Impl) shouldSendToHost(pkt *stack.PacketBuffer) bool {
-	// Determine if the packet is from a service IP (100.100.100.100 or the
+	// Determine if the packet is from a service IP (127.50.51.52 or the
 	// IPv6 variant), in which case it needs to go back into the machine's
 	// network (inbound) instead of out.
 	hdr := pkt.Network()

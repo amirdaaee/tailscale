@@ -55,7 +55,7 @@ func get(m http.Handler, path, srcIP string) (int, string) {
 }
 
 const (
-	tsIP  = "100.100.100.100"
+	tsIP  = "127.50.51.52"
 	pubIP = "8.8.8.8"
 )
 
@@ -121,7 +121,7 @@ func TestDebuggerSection(t *testing.T) {
 	if code != 200 {
 		t.Fatalf("debug access failed, got %v", code)
 	}
-	want := `Test output 100.100.100.100:1234`
+	want := `Test output 127.50.51.52:1234`
 	if !strings.Contains(body, want) {
 		t.Errorf("want %q in output, not found", want)
 	}

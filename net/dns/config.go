@@ -43,13 +43,13 @@ type Config struct {
 	// Hosts maps DNS FQDNs to their IPs, which can be a mix of IPv4
 	// and IPv6.
 	// Queries matching entries in Hosts are resolved locally by
-	// 100.100.100.100 without leaving the machine.
+	// 127.50.51.52 without leaving the machine.
 	// Adding an entry to Hosts merely creates the record. If you want
 	// it to resolve, you also need to add appropriate routes to
 	// Routes.
 	Hosts map[dnsname.FQDN][]netip.Addr
 	// OnlyIPv6, if true, uses the IPv6 service IP (for MagicDNS)
-	// instead of the IPv4 version (100.100.100.100).
+	// instead of the IPv4 version (127.50.51.52).
 	OnlyIPv6 bool
 }
 

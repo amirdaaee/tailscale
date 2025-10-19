@@ -74,13 +74,13 @@ ip addr add 100.101.102.103/10 dev tailscale0` + basic,
 			name: "addr and routes",
 			in: &Config{
 				LocalAddrs:    mustCIDRs("100.101.102.103/10"),
-				Routes:        mustCIDRs("100.100.100.100/32", "192.168.16.0/24"),
+				Routes:        mustCIDRs("127.50.51.52/32", "192.168.16.0/24"),
 				NetfilterMode: netfilterOff,
 			},
 			want: `
 up
 ip addr add 100.101.102.103/10 dev tailscale0
-ip route add 100.100.100.100/32 dev tailscale0 table 52
+ip route add 127.50.51.52/32 dev tailscale0 table 52
 ip route add 192.168.16.0/24 dev tailscale0 table 52` + basic,
 		},
 
@@ -88,14 +88,14 @@ ip route add 192.168.16.0/24 dev tailscale0 table 52` + basic,
 			name: "addr and routes and subnet routes",
 			in: &Config{
 				LocalAddrs:    mustCIDRs("100.101.102.103/10"),
-				Routes:        mustCIDRs("100.100.100.100/32", "192.168.16.0/24"),
+				Routes:        mustCIDRs("127.50.51.52/32", "192.168.16.0/24"),
 				SubnetRoutes:  mustCIDRs("200.0.0.0/8"),
 				NetfilterMode: netfilterOff,
 			},
 			want: `
 up
 ip addr add 100.101.102.103/10 dev tailscale0
-ip route add 100.100.100.100/32 dev tailscale0 table 52
+ip route add 127.50.51.52/32 dev tailscale0 table 52
 ip route add 192.168.16.0/24 dev tailscale0 table 52` + basic,
 		},
 
@@ -103,7 +103,7 @@ ip route add 192.168.16.0/24 dev tailscale0 table 52` + basic,
 			name: "addr and routes and subnet routes with netfilter",
 			in: &Config{
 				LocalAddrs:        mustCIDRs("100.101.102.104/10"),
-				Routes:            mustCIDRs("100.100.100.100/32", "10.0.0.0/8"),
+				Routes:            mustCIDRs("127.50.51.52/32", "10.0.0.0/8"),
 				SubnetRoutes:      mustCIDRs("200.0.0.0/8"),
 				SNATSubnetRoutes:  true,
 				StatefulFiltering: true,
@@ -113,7 +113,7 @@ ip route add 192.168.16.0/24 dev tailscale0 table 52` + basic,
 up
 ip addr add 100.101.102.104/10 dev tailscale0
 ip route add 10.0.0.0/8 dev tailscale0 table 52
-ip route add 100.100.100.100/32 dev tailscale0 table 52` + basic +
+ip route add 127.50.51.52/32 dev tailscale0 table 52` + basic +
 				`v4/filter/FORWARD -j ts-forward
 v4/filter/INPUT -j ts-input
 v4/filter/ts-forward -i tailscale0 -j MARK --set-mark 0x40000/0xff0000
@@ -140,7 +140,7 @@ v6/nat/ts-postrouting -m mark --mark 0x40000/0xff0000 -j MASQUERADE
 			name: "addr and routes and subnet routes with netfilter but no stateful filtering",
 			in: &Config{
 				LocalAddrs:        mustCIDRs("100.101.102.104/10"),
-				Routes:            mustCIDRs("100.100.100.100/32", "10.0.0.0/8"),
+				Routes:            mustCIDRs("127.50.51.52/32", "10.0.0.0/8"),
 				SubnetRoutes:      mustCIDRs("200.0.0.0/8"),
 				SNATSubnetRoutes:  true,
 				StatefulFiltering: false,
@@ -150,7 +150,7 @@ v6/nat/ts-postrouting -m mark --mark 0x40000/0xff0000 -j MASQUERADE
 up
 ip addr add 100.101.102.104/10 dev tailscale0
 ip route add 10.0.0.0/8 dev tailscale0 table 52
-ip route add 100.100.100.100/32 dev tailscale0 table 52` + basic +
+ip route add 127.50.51.52/32 dev tailscale0 table 52` + basic +
 				`v4/filter/FORWARD -j ts-forward
 v4/filter/INPUT -j ts-input
 v4/filter/ts-forward -i tailscale0 -j MARK --set-mark 0x40000/0xff0000
@@ -175,14 +175,14 @@ v6/nat/ts-postrouting -m mark --mark 0x40000/0xff0000 -j MASQUERADE
 			name: "addr and routes with netfilter",
 			in: &Config{
 				LocalAddrs:    mustCIDRs("100.101.102.104/10"),
-				Routes:        mustCIDRs("100.100.100.100/32", "10.0.0.0/8"),
+				Routes:        mustCIDRs("127.50.51.52/32", "10.0.0.0/8"),
 				NetfilterMode: netfilterOn,
 			},
 			want: `
 up
 ip addr add 100.101.102.104/10 dev tailscale0
 ip route add 10.0.0.0/8 dev tailscale0 table 52
-ip route add 100.100.100.100/32 dev tailscale0 table 52` + basic +
+ip route add 127.50.51.52/32 dev tailscale0 table 52` + basic +
 				`v4/filter/FORWARD -j ts-forward
 v4/filter/INPUT -j ts-input
 v4/filter/ts-forward -i tailscale0 -j MARK --set-mark 0x40000/0xff0000
@@ -206,7 +206,7 @@ v6/nat/POSTROUTING -j ts-postrouting
 			name: "addr and routes and subnet routes with netfilter but no SNAT",
 			in: &Config{
 				LocalAddrs:       mustCIDRs("100.101.102.104/10"),
-				Routes:           mustCIDRs("100.100.100.100/32", "10.0.0.0/8"),
+				Routes:           mustCIDRs("127.50.51.52/32", "10.0.0.0/8"),
 				SubnetRoutes:     mustCIDRs("200.0.0.0/8"),
 				SNATSubnetRoutes: false,
 				NetfilterMode:    netfilterOn,
@@ -215,7 +215,7 @@ v6/nat/POSTROUTING -j ts-postrouting
 up
 ip addr add 100.101.102.104/10 dev tailscale0
 ip route add 10.0.0.0/8 dev tailscale0 table 52
-ip route add 100.100.100.100/32 dev tailscale0 table 52` + basic +
+ip route add 127.50.51.52/32 dev tailscale0 table 52` + basic +
 				`v4/filter/FORWARD -j ts-forward
 v4/filter/INPUT -j ts-input
 v4/filter/ts-forward -i tailscale0 -j MARK --set-mark 0x40000/0xff0000
@@ -238,14 +238,14 @@ v6/nat/POSTROUTING -j ts-postrouting
 			name: "addr and routes with netfilter",
 			in: &Config{
 				LocalAddrs:    mustCIDRs("100.101.102.104/10"),
-				Routes:        mustCIDRs("100.100.100.100/32", "10.0.0.0/8"),
+				Routes:        mustCIDRs("127.50.51.52/32", "10.0.0.0/8"),
 				NetfilterMode: netfilterOn,
 			},
 			want: `
 up
 ip addr add 100.101.102.104/10 dev tailscale0
 ip route add 10.0.0.0/8 dev tailscale0 table 52
-ip route add 100.100.100.100/32 dev tailscale0 table 52` + basic +
+ip route add 127.50.51.52/32 dev tailscale0 table 52` + basic +
 				`v4/filter/FORWARD -j ts-forward
 v4/filter/INPUT -j ts-input
 v4/filter/ts-forward -i tailscale0 -j MARK --set-mark 0x40000/0xff0000
@@ -269,14 +269,14 @@ v6/nat/POSTROUTING -j ts-postrouting
 			name: "addr and routes with half netfilter",
 			in: &Config{
 				LocalAddrs:    mustCIDRs("100.101.102.104/10"),
-				Routes:        mustCIDRs("100.100.100.100/32", "10.0.0.0/8"),
+				Routes:        mustCIDRs("127.50.51.52/32", "10.0.0.0/8"),
 				NetfilterMode: netfilterNoDivert,
 			},
 			want: `
 up
 ip addr add 100.101.102.104/10 dev tailscale0
 ip route add 10.0.0.0/8 dev tailscale0 table 52
-ip route add 100.100.100.100/32 dev tailscale0 table 52` + basic +
+ip route add 127.50.51.52/32 dev tailscale0 table 52` + basic +
 				`v4/filter/ts-forward -i tailscale0 -j MARK --set-mark 0x40000/0xff0000
 v4/filter/ts-forward -m mark --mark 0x40000/0xff0000 -j ACCEPT
 v4/filter/ts-forward -o tailscale0 -s 100.64.0.0/10 -j DROP
@@ -293,14 +293,14 @@ v6/filter/ts-forward -o tailscale0 -j ACCEPT
 			name: "addr and routes with netfilter2",
 			in: &Config{
 				LocalAddrs:    mustCIDRs("100.101.102.104/10"),
-				Routes:        mustCIDRs("100.100.100.100/32", "10.0.0.0/8"),
+				Routes:        mustCIDRs("127.50.51.52/32", "10.0.0.0/8"),
 				NetfilterMode: netfilterOn,
 			},
 			want: `
 up
 ip addr add 100.101.102.104/10 dev tailscale0
 ip route add 10.0.0.0/8 dev tailscale0 table 52
-ip route add 100.100.100.100/32 dev tailscale0 table 52` + basic +
+ip route add 127.50.51.52/32 dev tailscale0 table 52` + basic +
 				`v4/filter/FORWARD -j ts-forward
 v4/filter/INPUT -j ts-input
 v4/filter/ts-forward -i tailscale0 -j MARK --set-mark 0x40000/0xff0000
@@ -323,7 +323,7 @@ v6/nat/POSTROUTING -j ts-postrouting
 			name: "addr, routes, and local routes with netfilter",
 			in: &Config{
 				LocalAddrs:    mustCIDRs("100.101.102.104/10"),
-				Routes:        mustCIDRs("100.100.100.100/32", "0.0.0.0/0"),
+				Routes:        mustCIDRs("127.50.51.52/32", "0.0.0.0/0"),
 				LocalRoutes:   mustCIDRs("10.0.0.0/8"),
 				NetfilterMode: netfilterOn,
 			},
@@ -331,7 +331,7 @@ v6/nat/POSTROUTING -j ts-postrouting
 up
 ip addr add 100.101.102.104/10 dev tailscale0
 ip route add 0.0.0.0/0 dev tailscale0 table 52
-ip route add 100.100.100.100/32 dev tailscale0 table 52
+ip route add 127.50.51.52/32 dev tailscale0 table 52
 ip route add throw 10.0.0.0/8 table 52` + basic +
 				`v4/filter/FORWARD -j ts-forward
 v4/filter/INPUT -j ts-input
@@ -355,7 +355,7 @@ v6/nat/POSTROUTING -j ts-postrouting
 			name: "addr, routes, and local routes with no netfilter",
 			in: &Config{
 				LocalAddrs:    mustCIDRs("100.101.102.104/10"),
-				Routes:        mustCIDRs("100.100.100.100/32", "0.0.0.0/0"),
+				Routes:        mustCIDRs("127.50.51.52/32", "0.0.0.0/0"),
 				LocalRoutes:   mustCIDRs("10.0.0.0/8", "192.168.0.0/24"),
 				NetfilterMode: netfilterOff,
 			},
@@ -363,7 +363,7 @@ v6/nat/POSTROUTING -j ts-postrouting
 up
 ip addr add 100.101.102.104/10 dev tailscale0
 ip route add 0.0.0.0/0 dev tailscale0 table 52
-ip route add 100.100.100.100/32 dev tailscale0 table 52
+ip route add 127.50.51.52/32 dev tailscale0 table 52
 ip route add throw 10.0.0.0/8 table 52
 ip route add throw 192.168.0.0/24 table 52` + basic,
 		},
